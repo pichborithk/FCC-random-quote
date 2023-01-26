@@ -28,10 +28,10 @@ function setColor(array) {
   document.body.style.backgroundColor = pickColor(array);
 }
 
-button.addEventListener('click', () => {
-  setColor(colors);
-  getQuote();
-});
+function setQuote(quoteText, quoteAuthor) {
+  text.textContent = quoteText;
+  author.textContent = quoteAuthor;
+}
 
 function getQuote() {
   fetch(
@@ -41,11 +41,15 @@ function getQuote() {
     .then((data) => {
       let quoteText = data.quotes[random(data.quotes)].quote;
       let quoteAuthor = data.quotes[random(data.quotes)].author;
-      displayQuote(quoteText, quoteAuthor);
+      setQuote(quoteText, quoteAuthor);
     });
 }
 
-function displayQuote(quoteText, quoteAuthor) {
-  text.textContent = quoteText;
-  author.textContent = quoteAuthor;
-}
+button.addEventListener('click', () => {
+  setColor(colors);
+  getQuote();
+});
+
+setColor(colors);
+
+getQuote();
